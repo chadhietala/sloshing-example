@@ -16,4 +16,4 @@ The second example uses the a single component and we just create new instances 
 
 This has nothing really to do with Ember, but more of the fact that the system you are writing against can go way faster if you work within its assumptions.
 
-To reproduce please do `ember server --environment=production`
+To reproduce please do `ember server --environment=production`. Then comment/uncomment out the each blocks in application.hbs.
