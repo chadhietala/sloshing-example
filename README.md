@@ -1,52 +1,19 @@
 # sloshing-example
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This example quickly shows the cost associated with not leveraging JITd code in V8. The example is pretty simple, render 200 components on the page.
 
-## Prerequisites
+## Not leveraging JITd Code
 
-You will need the following things properly installed on your computer.
+![Not Sharing Code](./not-sharing.png)
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with NPM)
-* [Bower](https://bower.io/)
-* [Ember CLI](https://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+## Leveraging JITd Code (About 200ms faster)
 
-## Installation
+![Sharing Code](./sharing.png)
 
-* `git clone <repository-url>` this repository
-* `cd sloshing-example`
-* `npm install`
-* `bower install`
+The difference here is that in the first example we iterate 200 times, rendering a specific component for each item in the list. This means the we use the component once the VM never sees it again. However, optimized code was compiled for it, but we never use it again.
 
-## Running / Development
+The second example uses the a single component and we just create new instances of it with different data. Because the same code is seen many times it leverages the optimized code and can even optimize further as it becomes hot.
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+This has nothing really to do with Ember, but more of the fact that the system you are writing against can go way faster if you work within its assumptions.
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+To reproduce please do `ember server --environment=production`

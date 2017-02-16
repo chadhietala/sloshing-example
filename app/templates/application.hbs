@@ -1,5 +1,8 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+{{#each (range 200) as |item i|}}
+  {{component (concat 'component-' i)}}
+{{/each}}
 
-{{outlet}}
+
+{{!--{{#each (range 200) as |item i|}}--}}
+  {{!--{{component 'component-0' name=i}}--}}
+{{!--{{/each}}--}}
